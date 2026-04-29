@@ -62,3 +62,15 @@ tasks.named('jar') {
 tasks.named('build') {
     dependsOn shadowJar
 }
+
+jar {
+    manifest {
+        attributes(
+            'X-Kestra-Name': 'plugin-splunk',
+            'X-Kestra-Title': 'Splunk',
+            'X-Kestra-Group': 'io.kestra.plugin.splunk',
+            'X-Kestra-Description': 'Kestra plugin for Splunk search and HEC event ingestion',
+            'X-Kestra-Version': version
+        )
+    }
+}
