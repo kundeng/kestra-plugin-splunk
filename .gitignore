@@ -1,7 +1,8 @@
 build/
 .gradle/
 *.class
-*.jar
 .idea/
 *.iml
 out/
+# Don't ignore the Gradle wrapper JAR
+!gradle/wrapper/gradle-wrapper.jar
