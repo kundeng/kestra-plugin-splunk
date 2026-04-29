@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.gradleup.shadow' version '8.3.6'
 }
 
 group = 'io.kestra.plugin'
@@ -19,51 +19,18 @@ repositories {
 def kestraVersion = '0.21.+'
 
 dependencies {
-    // Kestra core (compile-only — provided by Kestra at runtime)
     compileOnly "io.kestra:core:${kestraVersion}"
-    compileOnly "io.kestra:storage-local:${kestraVersion}"
-
-    // Annotations
     compileOnly 'org.projectlombok:lombok:1.18.36'
     annotationProcessor 'org.projectlombok:lombok:1.18.36'
-
-    // HTTP client for Splunk REST API
     api 'com.squareup.okhttp3:okhttp:4.12.0'
-
-    // JSON processing
     api 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
-
-    // Swagger annotations for property documentation
     compileOnly 'io.swagger.core.v3:swagger-annotations:2.2.30'
-
-    // Validation
     compileOnly 'jakarta.validation:jakarta.validation-api:3.1.1'
-
-    // Testing
-    testImplementation "io.kestra:core:${kestraVersion}"
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
-    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 shadowJar {
     archiveClassifier.set('')
     mergeServiceFiles()
-}
-
-test {
-    useJUnitPlatform()
-}
-
-tasks.named('jar') {
-    enabled = false
-}
-
-tasks.named('build') {
-    dependsOn shadowJar
-}
-
-jar {
     manifest {
         attributes(
             'X-Kestra-Name': 'plugin-splunk',
@@ -74,3 +41,6 @@ jar {
         )
     }
 }
+
+tasks.named('jar') { enabled = false }
+tasks.named('build') { dependsOn shadowJar }
