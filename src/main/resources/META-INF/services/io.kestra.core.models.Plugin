@@ -1,0 +1,2 @@
+io.kestra.plugin.splunk.SplunkSearch
+io.kestra.plugin.splunk.SplunkHecSend
